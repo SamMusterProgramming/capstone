@@ -16,7 +16,7 @@ function RootLayout({user}) {
              <div className="col-sm p-3 min-vh-100">
                 <Outlet />
              </div> 
-       </div>   
+        </div>   
     </div>
    </div> 
   )
