@@ -1,11 +1,18 @@
 import React from 'react'
 import TopBar from '../components/TopBar'
 import LeftSideBar from '../components/RightSideBar'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
 
 function RootLayout({user}) {
+
+  const isAuthenticated = user? true : false ; 
+
   return (
+    <>
+   
+    { isAuthenticated ? (
+      
     <div className='w-full'>
        <TopBar user={user} /> 
        
@@ -18,7 +25,10 @@ function RootLayout({user}) {
              </div> 
         </div>   
     </div>
-   </div> 
+   </div>
+    ) : (<Navigate to='/sign-in' />)
+    }
+     </>
   )
 }
 

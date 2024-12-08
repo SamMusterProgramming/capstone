@@ -31,7 +31,7 @@ export default function App() {
          </Route>
          <Route element={<RootLayout user={user} />}>
             <Route path="/" element={ <Home user = {user}/>} /> 
-            <Route path="/challenge" element={ <Challenge/>} /> 
+            <Route path="/challenge" element={ <Challenge user={user}/>} /> 
             <Route path="/Talent" element={ <Talent/>} /> 
          </Route>
         </Routes>   
