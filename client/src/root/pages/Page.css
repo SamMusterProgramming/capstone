@@ -1,7 +1,22 @@
+.post-container{
+    max-width:900px;
+    gap:30px;
+    flex-direction: column;
+    display: flex;
+    justify-content: start;
+}
+.description {
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 200;
+    color: black;
+}
 .postholder {
     width: 100%;
     height: 500px;
     background-color: azure;
+    border-radius: 15px;
 }
 .post-size {
     width: 100%;
