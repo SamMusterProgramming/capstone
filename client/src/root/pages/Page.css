@@ -1,10 +1,27 @@
+/* ************************** rootlayout ****************************************** */
+
+.full-page {
+    width: 100vw;
+    height: 100vh;
+   background-color:#eaeaea; 
+}
+
+/* ************************** homelayout ****************************************** */
+.homelayout{
+    max-height:84%;
+    overflow: scroll;
+  
+}
+/* ************************** challenge post ****************************************** */
 .post-container{
     max-width:900px;
     gap:30px;
+    min-height:100%;
     flex-direction: column;
     display: flex;
     justify-content: start;
     align-items: center;
+    overflow: scroll;
 }
 .description {
     border-radius: 15px;
@@ -16,7 +33,7 @@
 }
 .postholder {
     width: 100%;
-    height: 500px;
+    max-height: 100%;
     background-color: rgb(87, 126, 126);
     border-radius: 15px;
 }
@@ -27,13 +44,13 @@
     border-radius: 15px;
     background-color: rgb(87, 126, 126);
 }
-.footer{
+.postfooter{
     width: 100%;
     height: 70px;
     background-color: rgb(40, 40, 28);
     border-radius: 20px;
 }
-.footer button {
+.postfooter button {
   font-size: 20px;
   cursor: pointer;
 }
@@ -45,3 +62,7 @@
     font-weight: 500;
     font-size: 18px;
 }
+
+/* ************************** home page ****************************************** */
+
+

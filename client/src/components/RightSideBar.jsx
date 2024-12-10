@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-
+import './Components.css' 
 
 const RightSideBar = ({user}) => {
 
@@ -8,35 +8,39 @@ const RightSideBar = ({user}) => {
 
    
 
-        <div className="col-sm-auto bg-dark sticky-top">
-
-            <div className="d-flex flex-sm-column flex-row flex-nowrap bg-dark align-items-center sticky-top">
-               
-                <div  className="d-flex flex-column gap-2 text-center menu-item mt-5">
+        // <div className="col-sm-auto bg-dark   sticky-top">
+       
+            <div  className="d-flex  align-items-center gap-5 footer ">
+                    
+                <div  className="d-flex flex-row gap-2 text-center menu-item ">
                   <Link to='/Talent'>
                     <img style={{backgroundColor:'tomato'}} className="challenge-logo" src="/asset/material/talent.png" alt="" />
                   </Link>   
-                  <p>Talent</p> 
+                
                 </div>
-                <div className="d-flex flex-column gap-2 text-center menu-item mt-5">
+
+                <div className="d-flex flex-row gap-2 text-center menu-item ">
                   <Link to='/challenge'>
                     <img className="challenge-logo" src="/asset/material/chalenge.png" alt="" />
                   </Link>   
-                  <p>Challenge</p> 
+            
                 </div>
-                <div style={{marginTop:55}} className="d-flex flex-column  gap-2 text-center  menu-item ">
+
+                <div className="d-flex flex-row  gap-2 text-center  menu-item ">
                   <Link to='/challenge'>
                     <img className="challenge-logo" src="/asset/material/chalenge.png" alt="" />
                   </Link>
-                  <p>Challenge</p>
+                 
                 </div>
-                <div className="d-flex flex-column text-center gap-2 menu-item mt-5 ">
+
+                <div className="d-flex flex-row text-center gap-2 menu-item ">
                   <Link to='/'>
                     <img style={{backgroundColor:'red'}} className="challenge-logo" src="/asset/material/guiness.jpg" alt="" />
                   </Link>
-                  <p>Guiness</p> 
+                 
                 </div>
-                <div className="dropdown">
+
+                {/* <div className="dropdown">
                     <a href="#" className="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
                         <i className="bi-person-circle h2"></i>
                     </a>
@@ -45,9 +49,10 @@ const RightSideBar = ({user}) => {
                         <li><a className="dropdown-item" href="#">Settings</a></li>
                         <li><a className="dropdown-item" href="#">Profile</a></li>
                     </ul>
-                </div>
+                </div> */}
+
             </div>
-        </div>
+   
         
     
 

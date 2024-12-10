@@ -7,19 +7,19 @@ const topBar = ({user}) => {
 
 
   console.log(user)
-
+      
   return (  
    
-         <div className="d-flex justify-content-between  topbar">    
+         <div className="container-fluid d-flex justify-content-between  topbar">  
+        
             <div className="menu d-flex gap-4 justify-content-start">
-               <Link to='/sign-in'>
-                 <img className="talent-logo" src="/asset/material/show.avif" alt="nature" />
-               </Link>  
-                
+                <Link to='/'>
+                  <img className="talent-logo" src="/asset/material/show.avif" alt="nature" />
+                </Link>    
                 <ItemMenu linkTo ={"/challenge"} styleObject={{marginLeft:50}} logo_src={"/asset/material/home.png"}  />
                 <ItemMenu linkTo ={"/"} styleObject={{marginLeft:30}} logo_src={"/asset/material/badge.svg"} />
               
-                <p> <Link to='/'>Started</Link>  </p>
+                {/* <p> <Link to='/'>Started</Link>  </p> */}
             </div>
             
             <div className="" style={{width:'30%'}}>

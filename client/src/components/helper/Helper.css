@@ -22,3 +22,48 @@
     font-weight: 500;
     font-size: 14px;
 }
+
+
+/* ********************************* talentSelector**************************** */
+.introduction {
+    
+}
+.challenge-card {
+    background-color: black;
+}
+.card {
+    background-color: orchid;
+}
+.top{
+    background-color: orangered;
+    height: 40px;
+}
+.card-header{
+   font-size: 13px;
+   font-style: italic;
+   color: black;
+   font-weight: 700;
+  
+}
+.logo-select {
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color:blueviolet;
+    margin-left: 5px;
+}
+.card-text {
+    font-size: 12px; 
+    font-style: oblique;
+    font-weight: 600;
+}
+.card-body button {
+    font-size: 12px;
+    margin-top: 17px;
+    font-weight: 700;
+    height: 30px; 
+    width: 120px;
+    border-radius: 8px;
+    cursor: pointer;
+}

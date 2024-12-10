@@ -24,7 +24,7 @@ const LiveWebcam = (props) => {
       setRecordedChunks(prev => prev.concat(data));
     }
   },[setRecordedChunks]) 
-
+   
   const handleStartRecording = useCallback(()=>{
     setRecording(true);
     mediaRecorderRef.current = RecordRTC(webcamRef.current.stream,{
@@ -67,6 +67,7 @@ const LiveWebcam = (props) => {
      <div className="postholder">
       {!blob?(
          <Webcam
+        className='post-size'
          height={400}
          width="100%"
          audio = "true"
@@ -78,6 +79,7 @@ const LiveWebcam = (props) => {
         <>
            <button onClick={handleDownload}>download</button>
            <video
+           className='post-size'
            height="800"
            width="800"
            autoPlay
@@ -92,7 +94,7 @@ const LiveWebcam = (props) => {
      
     </div>
               <div className='container-fluid d-flex gap-5 justify-content-between 
-              align-items-center footer'>
+              align-items-center postfooter'>
                  
                    { recording ?
                      (

@@ -63,11 +63,16 @@ const addDescrition =(e)=> {
 }
 
   return (
-    <div className="container-fluid  text-center post-container">
-         
-         <PostHeader user={user} talentType ="Add Your Challenge"/>
+    <div className="container-fluid  text-start post-container">
+               
+         <p style={{fontSize:12,color:'black'}}> Welcome  <span style={{fontSize:16,color:'GrayText'}}>{user.name}</span> ,
+          are you ready to lunch a new Challenge to the world <br/>
+         the Stage is yours, record or upload your challenge content from your comfort zone <br/>
+         Let the world be judge, someone will pick up the challenge   </p>
+         <PostHeader user={user} talentType ="Challenge"/>
   
-          <textarea className="description" onChange={addDescrition}  name='description' placeholder='add description to your challenge'>
+          <textarea style={{backgroundColor:'black',color:'white',fontWeight:500}}
+           className="description" onChange={addDescrition}  name='description' placeholder='add description to your challenge'>
           </textarea>
 
 
@@ -91,7 +96,7 @@ const addDescrition =(e)=> {
           
               }
               
-          <button onClick={handleUploading} className='mt-4 submit'>Submit</button>
+          <button onClick={handleUploading} className='mt-1 mb-3 submit'>Submit</button>
 
     </div> 
   )

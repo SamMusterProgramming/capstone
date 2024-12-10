@@ -3,10 +3,11 @@ import VideoUploader from './videoUploader'
 import VideoRecorder from './VideoRecorder'
 
 
+
 const UploadVideo = (props) => {
   return (
     <>
-    <div className="postholder">
+         <div className="postholder">
 
             { props.videoSrc ? 
             (
@@ -14,28 +15,25 @@ const UploadVideo = (props) => {
                     className='post-size'
                     src={props.videoSrc}
                     fluid="true"
-                    width= '100%'
-                    height='100%'
                     controls
                 />
             ):
-            (
+            (         
                 <video 
                     className='post-size'
                     src= "" //{videoSrc}
-                    fluid="true"
-                    width= '100%'
-                    height='100%'
+                    fluid="true"   
+                    controls
                 />
             ) 
             } 
-             </div>
-             <div className='container-fluid d-flex gap-5 justify-content-between 
-              align-items-center footer'>
+         </div>
+         <div className='container-fluid d-flex gap-5 justify-content-between 
+              align-items-center postfooter'>
                   <VideoUploader  onChange={props.handleUpload} /> 
                   <VideoRecorder   setSwitchUploadLive={props.setSwitchUploadLive}/>
 
-             </div>
+         </div>
    
       </>
   

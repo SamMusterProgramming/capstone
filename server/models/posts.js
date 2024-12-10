@@ -10,7 +10,7 @@ const postSchema = new mongoose.Schema({
     },
     user_id:{
        type:Number,
-       required: true
+       required: true   
     },
      image_url:{
         type:String,
