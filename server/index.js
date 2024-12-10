@@ -9,7 +9,7 @@ const userRoute = require('./routes/userRoutes.js')
 const postRoute = require('./routes/postRoutes.js')
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8000
 const app = express()
 connectDB() 
 

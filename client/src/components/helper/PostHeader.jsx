@@ -4,13 +4,13 @@ const PostHeader = (props) => {
   return (
     <div className="container-fluid d-flex mt-5 justify-content-start align-items-center gap-4 post-header">
     <img id='imgProfile' src = {props.user.profile_img}  alt="User Avatar"/>  
-    <div >
+    <div className='d-flex flex-column'>
         <div className="user-name">{props.user.name}</div>
         <div className="post-time">5 mins ago</div>
     </div>
     <div className='d-flex text-light  text-center'>
-     <p style={{fontSize:12}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia earum fuga, 
-        vel 
+     <p style={{fontSize:12}}>
+       
      </p>    
     </div>
     <div style={{marginLeft:'auto'}} className='d-flex flex-column justify-content-center align-items-center'>

@@ -10,7 +10,7 @@
    margin-left: 15px;
 }
 .menu-logo {
-    width: 60px;
+    width: 45px;
     background-color: rgb(14, 153, 213);
     border-radius: 20%;
     cursor: pointer;
@@ -20,8 +20,8 @@
 }
 .talent-logo{
     margin-top: 20px;
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -55,12 +55,13 @@
    /* rightsidebar */
 .menu-item {
     margin-left: 0px;
+    align-items: center;
 }
 .menu-item p {
   font-size: 13px;
 }
 .challenge-logo {
-    width: 60px;
+    width: 50px;
     background-color: rgb(14, 153, 213);
     border-radius: 20%;
     cursor: pointer;

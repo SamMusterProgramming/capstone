@@ -2,7 +2,9 @@ const express = require('express')
 const postModel = require('../models/posts')
 const {ObjectId} = require('mongodb')
 const commentModel = require('../models/comments')
+const challengeModel = require('../models/challenge.js')
 const data = require('../utilities/data')
+const upload = require('../multer.js')
 
 
 route = express.Router();
@@ -21,6 +23,41 @@ route.get('/seed',async(req,res)=>{
     if(!posts) return res.json({error:"posts list is empty"})
     res.json(posts).status(200) 
 })
+
+route.get('/challenges/seed',async(req,res)=>{
+    challengeModel.collection.drop() // delete the collection document and inialise it with prototype data.js
+    data.challenges.forEach(async(challenge) => {
+    
+      const newChallenge=  new challengeModel(challenge)
+      await newChallenge.save()
+    })
+    const challenges = await challengeModel.find({}).limit(20)
+    if(!challenges) return res.json({error:"challenge list is empty"})
+    res.json(challenges).status(200) 
+})
+
+route.post('/upload',upload.single('video'),async(req,res)=>{
+    console.log('I am here')
+    if(!req.file){
+        return res.status(400).send('no file to upload')
+    }
+    const challenge = {
+        origin_id:req.body.origin_id,
+        video_url:"/static/videos/" + req.file.originalname,
+        desc: req.body.description,
+        category : "eating context",
+        like_count:0,
+        participants:[{user_id:req.body.user_id ,
+             video_url:"/static/videos/" + req.file.originalname,
+             likes:0,
+             votes:0
+            }]    
+    }
+    const newChallenge = await challengeModel(challenge)
+    await newChallenge.save()
+    res.json( newChallenge)
+})
+
 
 route.route('/')
     .get(async(req,res)=> { // get all posts for all Posts

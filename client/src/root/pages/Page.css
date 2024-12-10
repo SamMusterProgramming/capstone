@@ -4,6 +4,7 @@
     flex-direction: column;
     display: flex;
     justify-content: start;
+    align-items: center;
 }
 .description {
     border-radius: 15px;
@@ -11,11 +12,12 @@
     font-size: 13px;
     font-weight: 200;
     color: black;
+    width: 100%;
 }
 .postholder {
     width: 100%;
     height: 500px;
-    background-color: azure;
+    background-color: rgb(87, 126, 126);
     border-radius: 15px;
 }
 .post-size {
@@ -23,6 +25,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: 15px;
+    background-color: rgb(87, 126, 126);
 }
 .footer{
     width: 100%;
@@ -33,4 +36,12 @@
 .footer button {
   font-size: 20px;
   cursor: pointer;
+}
+.submit{
+    background-color: green;
+    width: 30%;
+    height: 45px;
+    border-radius: 15px;
+    font-weight: 500;
+    font-size: 18px;
 }

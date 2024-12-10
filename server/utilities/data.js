@@ -95,6 +95,46 @@ const comments =[
     }
 ]
 
+const challenges = [{
+    origin_id:2,
+    participants:[ {
+      user_id: 2 ,
+      video_url: "/static/videos/1.mp4",
+      description : "I am the man ",
+      likes:15465,
+      votes:45612
+    },
+    {
+      user_id: 3 ,
+      video_url: "/static/videos/2.mp4",
+      description : "I can do it better ",
+      likes:1546,
+      votes:6537
+    }],
+    category: "eating context",
+    desc: "this is a new challenge",
+    like_count:1354635
+},
+{
+  origin_id:3,
+  participants:[ {
+    user_id: 2 ,
+    video_url: "/static/videos/1.mp4",
+    description : "I am the man ",
+    likes:15465,
+    votes:45612
+  },
+  {
+    user_id: 3 ,
+    video_url: "/static/videos/2.mp4",
+    description : "I can do it better ",
+    likes:1546,
+    votes:6537
+  }],
+  category: "eating context",
+  desc: "this is a new challenge",
+  like_count:1354635
+}]
 
 
-module.exports = { users ,posts };
+module.exports = { users ,posts ,challenges};

@@ -1,8 +1,9 @@
+import LiveWebcam from "../../components/helper/LiveWebcam"
 
 
 const Talent = () => {
   return (
-    <div>Talent</div>
+    <LiveWebcam />
   )
 }
 
