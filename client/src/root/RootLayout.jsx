@@ -14,6 +14,7 @@ function RootLayout({user}) {
     { isAuthenticated ? (
  
     <div className='w-full h-full  d-flex flex-column justify-content-between full-page'>
+          
         <TopBar user={user} /> 
        
         <div className="container-fluid homelayout">

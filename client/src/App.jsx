@@ -15,7 +15,8 @@ import Talent from './root/pages/Talent.jsx'
 import Homepage from './root/pages/Homepage.jsx'
 import NewChallenge from './root/pages/NewChallenge.jsx'
 import Challenges from './root/pages/Challenges.jsx'
-
+import TopBar from './components/TopBar.jsx'
+import RightSideBar from './components/RightSideBar.jsx'
 
 export default function App() {
   const [user, setUser] = useState(null)
@@ -27,7 +28,10 @@ export default function App() {
   
   return (
    <main className='flex h-screen'>
+  
        <Routes>
+           
+       
          <Route element={<AuthLayout user={user} />}>
             <Route path="/sign-in" element={ <Signin setUser={setUser}/>} /> 
             <Route path="/sign-up" element={ <Signup setUser={setUser}/>} /> 
@@ -44,7 +48,10 @@ export default function App() {
              </Route> */}
             <Route path="newtalent" element={ <Talent/>} /> 
          </Route>
-        </Routes>   
+        </Routes>  
+
+
+
    </main>
   )  
 }   

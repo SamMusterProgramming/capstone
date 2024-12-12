@@ -3,7 +3,7 @@ import './Components.css'
 import ItemMenu from "./helper/ItemMenu"
 
 
-const topBar = ({user}) => {
+const TopBar = ({user}) => {
 
 
   console.log(user)
@@ -33,7 +33,7 @@ const topBar = ({user}) => {
    
                <div className="d-flex align-item-center justify-content-center profile">
                  <Link to='/'>
-                   <img className="profile-img" src={user.profile_img} alt="profile" />
+                   {/* <img className="profile-img" src={user.profile_img} alt="profile" /> */}
                  </Link> 
                </div>
              
@@ -43,4 +43,4 @@ const topBar = ({user}) => {
   )
 }
 
-export default topBar
+export default TopBar
