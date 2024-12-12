@@ -10,8 +10,11 @@ import { Signin } from './auth/forms/Signin.jsx'
 import { Signup } from './auth/forms/Signup.jsx'
 import RootLayout from './root/RootLayout.jsx'
 import Home from './root/pages/Home.jsx'
-import Challenge from './root/pages/Challenge.jsx'
+import Challenge from './root/pages/NewChallenge.jsx'
 import Talent from './root/pages/Talent.jsx'
+import Homepage from './root/pages/Homepage.jsx'
+import NewChallenge from './root/pages/NewChallenge.jsx'
+import Challenges from './root/pages/Challenges.jsx'
 
 
 export default function App() {
@@ -29,10 +32,17 @@ export default function App() {
             <Route path="/sign-in" element={ <Signin setUser={setUser}/>} /> 
             <Route path="/sign-up" element={ <Signup setUser={setUser}/>} /> 
          </Route>
-         <Route element={<RootLayout user={user} />}>
-            <Route path="/" element={ <Home user = {user}/>} /> 
-            <Route path="/challenge" element={ <Challenge user={user}/>} /> 
-            <Route path="/Talent" element={ <Talent/>} /> 
+         <Route path="/" element={<RootLayout user={user} />}>
+              <Route path="" element={ <Homepage user = {user}/>} >
+                <Route path="home" element={ <Home user={user}/>} />
+                <Route path="challenges" element ={<Challenges user={user}/>} /> 
+              </Route>
+
+             <Route path="newchallenge" element={ <NewChallenge user={user}/>} />
+                {/* <Route path="challenge" element={ <Challenge user={user}/>} />
+                <Route path="about" element ={<Signin />} /> 
+             </Route> */}
+            <Route path="newtalent" element={ <Talent/>} /> 
          </Route>
         </Routes>   
    </main>

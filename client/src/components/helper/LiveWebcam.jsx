@@ -68,7 +68,7 @@ const LiveWebcam = (props) => {
       {!blob?(
          <Webcam
         className='post-size'
-         height={400}
+         height="100%"
          width="100%"
          audio = "true"
          ref={webcamRef}
@@ -80,8 +80,8 @@ const LiveWebcam = (props) => {
            <button onClick={handleDownload}>download</button>
            <video
            className='post-size'
-           height="800"
-           width="800"
+           height="100%"
+           width="100%"
            autoPlay
            src={blob}
            controls

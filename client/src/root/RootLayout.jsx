@@ -16,14 +16,7 @@ function RootLayout({user}) {
     <div className='w-full h-full  d-flex flex-column justify-content-between full-page'>
         <TopBar user={user} /> 
        
-        <div className="container-fluid  homelayout">
-         {/* <div className="row">
-               <LeftSideBar user={user}/> 
-
-             <div className="col-sm p-3 min-vh-100">
-                <Outlet />
-             </div> 
-          </div>    */}
+        <div className="container-fluid homelayout">
           <Outlet />
         </div>
         <RightSideBar user={user}/>

@@ -71,23 +71,35 @@ route.route('/user/:id')
         const updatedUser = await userModel.findByIdAndUpdate(
             userId,
             req.body,
-            { new: true }
+            { new: true }   
         )
         if(!updatedUser) return res.json({error:"cant find the user"}).status(404)
         res.status(200).json(updatedUser)
-      })
+      })  
 
 function validateMongoObjectId(req,res,next) {
     if (!ObjectId.isValid(req.params.id)) return res.status(404).json({Error:"error in request ID"});
     next()
     }    
 
+       
+  // challenge
+    route.get('/users/:id',async(req,res)=>{ // get single user by _id
+      console.log("start the user"+req.params.id)
+      const userId = Number(req.params.id)
+      const user = await userModel.findOne({id:userId})
+      console.log(user)
+      if(!user) return res.json({error:"cant find the user"}).status(404)
+      res.status(200).json(user)
+    })
+          
+    
 //I use this route to log in a user with session if successfully Authenticated 
 route.get('/login', isAuthenticated, async (req, res) => {
     if(!req.session.user) res.status(400).json("not looged in n")
     res.status(200).json(req.session.user)
 })
-
+    
 route.post('/login', async(req, res)=>{ 
   console.log(req.body)
     if(!req.body.email || !req.body.password) return res.json({error:"invalid loggin "}).status(404)

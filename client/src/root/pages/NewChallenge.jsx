@@ -9,7 +9,7 @@ import { useRecordWebcam } from 'react-record-webcam'
 import UploadVideo from '../../components/helper/UploadVideo';
 import axios from 'axios'
 
-const Challenge = ({user}) => {
+const NewChallenge = ({user}) => {
   
   const [swicthUploadLive ,setSwitchUploadLive] = useState(false)
 
@@ -63,6 +63,7 @@ const addDescrition =(e)=> {
 }
 
   return (
+   <div style={{backgroundColor:'white'}} className='container-fluid'>
     <div className="container-fluid  text-start post-container">
                
          <p style={{fontSize:12,color:'black'}}> Welcome  <span style={{fontSize:16,color:'GrayText'}}>{user.name}</span> ,
@@ -99,7 +100,8 @@ const addDescrition =(e)=> {
           <button onClick={handleUploading} className='mt-1 mb-3 submit'>Submit</button>
 
     </div> 
+  </div>  
   )
 }  
 
-export default Challenge
+export default NewChallenge

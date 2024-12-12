@@ -22,8 +22,10 @@ const UploadVideo = (props) => {
                 <video 
                     className='post-size'
                     src= "" //{videoSrc}
-                    fluid="true"   
-                    controls
+                    fluid="true"  
+                    width="100%"  
+                    height='100%'
+                   
                 />
             ) 
             } 

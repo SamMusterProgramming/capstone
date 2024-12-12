@@ -24,7 +24,7 @@ route.get('/seed',async(req,res)=>{
     res.json(posts).status(200) 
 })
 
-route.get('/challenges/seed',async(req,res)=>{
+route.get('/challengesss/seed',async(req,res)=>{
     challengeModel.collection.drop() // delete the collection document and inialise it with prototype data.js
     data.challenges.forEach(async(challenge) => {
     
@@ -47,7 +47,7 @@ route.post('/upload',upload.single('video'),async(req,res)=>{
         desc: req.body.description,
         category : "eating context",
         like_count:0,
-        participants:[{user_id:req.body.user_id ,
+        participants:[{user_id:req.body.origin_id ,
              video_url:"/static/videos/" + req.file.originalname,
              likes:0,
              votes:0
@@ -58,6 +58,13 @@ route.post('/upload',upload.single('video'),async(req,res)=>{
     res.json( newChallenge)
 })
 
+route.get('/challenges/:id',async(req,res)=> {
+    console.log("i am here" + req.params.id)
+    const origin_id = req.params.id;
+    const challenges = await challengeModel.find({origin_id:origin_id})
+    console.log(challenges)
+    res.json(challenges)   
+})
 
 route.route('/')
     .get(async(req,res)=> { // get all posts for all Posts

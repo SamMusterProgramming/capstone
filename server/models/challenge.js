@@ -13,6 +13,7 @@ const challengeSchema = new mongoose.Schema({
         type:Number,
         min:[0]
     },
+   
      video_url:{
         type:String,
         default:"/static/materials/avatar.avif"
@@ -24,14 +25,13 @@ const challengeSchema = new mongoose.Schema({
     },
     category:{
        type:String
-    },
+    },  
      comments: [] // to store comment of a user in an array of object for the challenge 
 },
  { timestamps: true, versionKey: false }
  )
-challengeSchema.index({user_id:1});
-challengeSchema.index({id:1});
-challengeSchema.index({user_id:1,id:1});
+// challengeSchema.index({origine_id:1});
+// challengeSchema.index({user_id:1,id:1});
 
 let challengeModel = mongoose.model("challenges",challengeSchema);
 

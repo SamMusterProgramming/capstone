@@ -16,8 +16,8 @@ const topBar = ({user}) => {
                 <Link to='/'>
                   <img className="talent-logo" src="/asset/material/show.avif" alt="nature" />
                 </Link>    
-                <ItemMenu linkTo ={"/challenge"} styleObject={{marginLeft:50}} logo_src={"/asset/material/home.png"}  />
-                <ItemMenu linkTo ={"/"} styleObject={{marginLeft:30}} logo_src={"/asset/material/badge.svg"} />
+                <ItemMenu linkTo ={"/home"} styleObject={{marginLeft:50}} logo_src={"/asset/material/home.png"}  />
+                <ItemMenu linkTo ={"/home"} styleObject={{marginLeft:30}} logo_src={"/asset/material/badge.svg"} />
               
                 {/* <p> <Link to='/'>Started</Link>  </p> */}
             </div>

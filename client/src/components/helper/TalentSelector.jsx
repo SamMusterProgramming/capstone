@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 const TalentSelector = (props) => {
   return (
-           <div className="col-md-4 gap-sm-4 challenge-card">  
-                <div className="card">
+           <div  className="col-md-4 gap-sm-4 challenge-card">  
+                <div  className="card mt-1">
                     <div className='d-flex justify-content-between align-items-center top '>
                       <img className='logo-select' src={props.logo} alt="logo" />
                       <h5 className="card-header text-center">{props.type}</h5>
