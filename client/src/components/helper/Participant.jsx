@@ -36,7 +36,7 @@ getUser()
 
           <div className='d-flex justify-content-start align-items-center  flex-column'>
             <img  style={{height:'48px',width:'48px',backgroundColor:'gray',borderRadius:'50%'}}
-             src={participant.profile_img} alt={participant.profile_img} />
+             src={"http://localhost:8080"+participant.profile_img} alt={participant.name} />
             <button style={{widh:'30%',height:"100%",fontSize:11,
                     fontFamily:"initial" ,marginTop:'0px',color:'black'
                 }} onClick={(e)=> { props.setVideo_url( props.participant.video_url),
