@@ -30,13 +30,23 @@ getUser()
 }, [])
  
   return (
-    <div style={{height:'20%',width:'100%',backgroundColor:'gray',padding:'15px',borderRadius:'10px'
+    <div   style={{height:'100%',width:'100%',backgroundColor:'gray',padding:'15px'
         }}
-     className=' d-flex align-items-center flex-row gap-1 border'>
-        <button style={{widh:'100%',height:"100%",backgroundColor:'blueviolet',fontSize:11,
-            fontFamily:'monospace'
-        }} onClick={(e)=>props.setVideo_url(props.participant.video_url)}>{participant.name} 
-        </button>
+     className=' d-flex align-items-center  flex-row gap-1 '>
+
+          <div className='d-flex justify-content-start align-items-center  flex-column'>
+            <img  style={{height:'48px',width:'48px',backgroundColor:'gray',borderRadius:'50%'}}
+             src={participant.profile_img} alt={participant.profile_img} />
+            <button style={{widh:'30%',height:"100%",fontSize:11,
+                    fontFamily:"initial" ,marginTop:'0px',color:'black'
+                }} onClick={(e)=> { props.setVideo_url( props.participant.video_url),
+                    props.setSelectedParticipant(props.participant),
+                    props.setSelectedUser(participant)
+                }}>{participant.name} 
+           </button>
+          </div>
+       
+       
     </div>
    
   )

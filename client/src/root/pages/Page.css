@@ -78,9 +78,13 @@
 
 
 /* ************************** challenges ****************************************** */
+.ch-page {
+    background-color: black;
+}
 .challenges {
-    background-color: yellowgreen;
-    min-height:400px;
+    background-color:#1f1e15;
+    min-height:500px;
     width: 100%;
+    border-radius: 10px;
 
 }

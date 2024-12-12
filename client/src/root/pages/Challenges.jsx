@@ -8,7 +8,7 @@ import ParticipantsDisplayer from '../../components/helper/ParticipantsDisplayer
 
 const Challenges = ({user}) => {
  
- const [challengers ,setChallengers] = useState([])   
+ const [challenges ,setChallenges] = useState([])   
 
 const [video_url ,setVideo_url] = useState()
 
@@ -21,7 +21,7 @@ const [video_url ,setVideo_url] = useState()
     try {
         await axios.get(`http://localhost:8080/posts/challenges/${user.id}`)
         .then(res => {
-            setChallengers(res.data) 
+            setChallenges(res.data) 
             // setVideo_url( "http://localhost:8080" + challenger.participants[0].video_url) 
         }
          )
@@ -38,13 +38,14 @@ const [video_url ,setVideo_url] = useState()
 
   return (
   
-     <div className='container-fluid d-flex gap-4 flex-column justify-content-start align-items-center border '>
+     <div className=' d-flex gap-5 flex-column justify-content-start align-items-center ch-page'>
        
    
-       { challengers.map((challenger,index)=>{
+       { challenges.map((challenge,index)=>{
 
             return  ( <div className="row challenges">
-                            <ParticipantsDisplayer  participants={challenger.participants} key={index} setVideo_url={setVideo_url} />
+                            <ParticipantsDisplayer user={user}  participants={challenge.participants} key={index}
+                            challenge={challenge} setVideo_url={setVideo_url} />
 
                </div> )
                

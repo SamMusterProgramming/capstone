@@ -2,8 +2,8 @@ import './Helper.css'
 
 const PostHeader = (props) => {
   return (
-    <div className="container-fluid d-flex justify-content-start align-items-center gap-4 post-header">
-    <img id='imgProfile' src = {props.user.profile_img}  alt="User Avatar"/>  
+    <div className=" d-flex justify-content-start align-items-center gap-4 post-header">
+    <img src = {props.user.profile_img}  alt="User Avatar"/>  
     <div className='d-flex flex-column'>
         <div className="user-name">{props.user.name}</div>
         <div className="post-time">5 mins ago</div>
