@@ -20,7 +20,9 @@ function RootLayout({user}) {
         <div className="container-fluid homelayout">
           <Outlet />
         </div>
+        
         <RightSideBar user={user}/>
+
     </div>
 
     ) : (<Navigate to='/sign-in' />)

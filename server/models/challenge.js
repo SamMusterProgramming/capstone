@@ -4,7 +4,7 @@ const validator = require('validator');
 
 const challengeSchema = new mongoose.Schema({ 
     origin_id:{
-       type:Number,
+       type:String,
        required : true ,
     },
     participants:[]
@@ -14,7 +14,7 @@ const challengeSchema = new mongoose.Schema({
         min:[0]
     },
    
-     video_url:{
+    video_url:{
         type:String,
         default:"/static/materials/avatar.avif"
     },

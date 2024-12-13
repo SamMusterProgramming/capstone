@@ -24,7 +24,7 @@ route.get('/seed',async(req,res)=>{
     res.json(posts).status(200) 
 })
 
-route.get('/challengesss/seed',async(req,res)=>{
+route.get('/challenges/seed',async(req,res)=>{
     challengeModel.collection.drop() // delete the collection document and inialise it with prototype data.js
     data.challenges.forEach(async(challenge) => {
     
@@ -36,6 +36,8 @@ route.get('/challengesss/seed',async(req,res)=>{
     res.json(challenges).status(200) 
 })
 
+
+// create new challenge
 route.post('/upload',upload.single('video'),async(req,res)=>{
     console.log('I am here')
     if(!req.file){
@@ -50,7 +52,9 @@ route.post('/upload',upload.single('video'),async(req,res)=>{
         participants:[{user_id:req.body.origin_id ,
              video_url:"/static/videos/" + req.file.originalname,
              likes:0,
-             votes:0
+             votes:0,
+             profile_img:req.body.profile_img,
+             name:req.body.name
             }]    
     }
     const newChallenge = await challengeModel(challenge)
@@ -58,13 +62,62 @@ route.post('/upload',upload.single('video'),async(req,res)=>{
     res.json( newChallenge)
 })
 
+route.post('/upload/:id',validateMongoObjectId,upload.single('video'),async(req,res)=>{
+    console.log('challeging a challenger')
+    if(!req.file){
+        return res.status(400).send('no file to upload')
+    }
+    const _id = req.params.id
+    const participant = {
+        // origin_id:req.body.origin_id,
+        // video_url:"/static/videos/" + req.file.originalname,
+        // desc: req.body.description,
+        // category : "eating context",
+        // like_count:0,
+             user_id:req.body.user_id ,
+             video_url:"/static/videos/" + req.file.originalname,
+             likes:0,
+             votes:0,
+             profile_img:req.body.profile_img,
+             name:req.body.name
+            }  
+    
+    const challenge = await challengeModel.findByIdAndUpdate(
+        _id,
+        {
+            $push: { participants : participant }
+         },
+         { new:true } 
+    )
+    if(!challenge) return res.json({error:"can';t save the video"})
+    res.json(challenge)
+})
+
 route.get('/challenges/:id',async(req,res)=> {
     console.log("i am here" + req.params.id)
     const origin_id = req.params.id;
     const challenges = await challengeModel.find({origin_id:origin_id})
+    // console.log(challenges)
+    const ch = await challengeModel.find({
+        participants:{$elemMatch: {user_id:req.params.id }}
+    })
+    console.log(ch)
+    res.json(ch)   
+})
+
+
+route.get('/topchallenges/:id',validateMongoObjectId,async(req,res)=> {
+    const idToExclude = req.params.id;
+    console.log(idToExclude)
+    const challenges = await challengeModel.find({ origin_id: { $ne: idToExclude } })
+    // const challenges = await challengeModel.find({ 
+    //     participants:{  user_id:{$ne: req.params.id }}
+    //  })
+
     console.log(challenges)
     res.json(challenges)   
 })
+
 
 route.route('/')
     .get(async(req,res)=> { // get all posts for all Posts

@@ -12,28 +12,28 @@ const RightSideBar = ({user}) => {
        
             <div  className="d-flex  align-items-center gap-5 footer ">
                     
-                <div  className="d-flex flex-row gap-2 text-center menu-item ">
+                <div  className="d-flex flex-row text-center menu-item ">
                   <Link to='/newtalent'>
                     <img style={{backgroundColor:'tomato'}} className="challenge-logo" src="/asset/material/talent.png" alt="" />
                   </Link>   
                 
                 </div>
 
-                <div className="d-flex flex-row gap-2 text-center menu-item ">
+                <div className="d-flex flex-row text-center menu-item ">
                   <Link to='/newchallenge'>
                     <img className="challenge-logo" src="/asset/material/chalenge.png" alt="" />
                   </Link>   
             
                 </div>
 
-                <div className="d-flex flex-row  gap-2 text-center  menu-item ">
+                <div className="d-flex flex-row  text-center  menu-item ">
                   <Link to='/newchallenge'>
                     <img className="challenge-logo" src="/asset/material/chalenge.png" alt="" />
                   </Link>
                  
                 </div>
 
-                <div className="d-flex flex-row text-center gap-2 menu-item ">
+                <div className="d-flex flex-row text-center  menu-item ">
                   <Link to='/'>
                     <img style={{backgroundColor:'red'}} className="challenge-logo" src="/asset/material/guiness.jpg" alt="" />
                   </Link>

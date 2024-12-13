@@ -1,28 +1,36 @@
 .topbar{
     width: 100%;
-    min-height: 7%;
+    max-height: 60px;
+    height: 16%;
     align-items: center;
     justify-content: space-evenly;
     background-color: rgb(42, 40, 40);
 }
 .menu{
    align-items: center;
-   margin-left: 15px;
+   /* margin-left: 15px; */
+   min-height: 100%;
+   /* background-color: aliceblue; */
+}
+.menu-item {
+    align-items: center;
+    height: 100%;
 }
 .menu-logo {
-    width: 45px;
+    width: 40px;
+    height: 80%;
     background-color: rgb(14, 153, 213);
     border-radius: 20%;
     cursor: pointer;
+    object-fit: cover;
 }
 .menu p{
    font-size: 13px; 
 }
 .talent-logo{
-    margin-top: 0px;
-    width: 80px;
-    height: 100%;
-    border-radius: 0%;
+    width: 60px;
+    height: 80px;
+    border-radius: 50%;
     object-fit: cover;
 }
 .search{
@@ -53,25 +61,11 @@
 
 
    /* rightsidebar */
-   
-.menu-item {
-    margin-left: 0px;
-    align-items: center;
-}
-.menu-item p {
-  font-size: 13px;
-}
-.challenge-logo {
-    width: 50px;
-    background-color: rgb(14, 153, 213);
-    border-radius: 20%;
-    cursor: pointer;
-    object-fit: cover;
-}
 
-.footer {
-       
-    min-height:7%;  
+
+.footer {  
+    max-height:60px;  
+    height: 14%;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -79,5 +73,19 @@
     left: 0;
     bottom:0;
     width: "100%";
-    background-color: black;
+    /* background-color: black; */
+   
+    background-color: rgb(14, 153, 213);
+}
+
+.menu-item p {
+  font-size: 13px;
+}
+.challenge-logo {
+    width: 40px;
+    height: 80%;
+    border-radius: 20%;
+    cursor: pointer;
+    object-fit: cover;
+    background-color: white;
 }

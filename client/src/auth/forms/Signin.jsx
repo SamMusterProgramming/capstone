@@ -36,12 +36,12 @@ return (
      <img style={{width:'100%',height:'70px',objectFit:'cover'}} 
        src="/asset/material/gotTalent.jpg" alt="" />   
    <div className="user_card"> 
-     <div className="d-flex justify-content-center">
-        <h3>Log In</h3>
-     </div> 
+     
      <div className="d-flex justify-content-center form_container">
        <form> 
-
+          <div className="d-flex mb-3 justify-content-center">
+           <h2>Login</h2>
+         </div> 
          <div className="input-group gap-2 mb-3 p-2">
            <div className="input-group-append ">
               <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
@@ -63,7 +63,7 @@ return (
            ref={password} defaultValue="samir" placeholder="password" 
            />
          </div>  
-         <div className="form-group m-5 ">
+         <div className="form-group m-3 ">
            <div className="custom-control d-flex  gap-3 custom-checkbox">
              <input type="checkbox" className="custom-control-input"
                                id="customControlInline" />

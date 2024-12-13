@@ -1,7 +1,7 @@
 
 const users =[
     {
-            id:1,
+        
             name: "will junior  Smith",
             profile_img: "../../assets/1.png",
             email: "johnSmith2020@gmail.com",
@@ -12,7 +12,7 @@ const users =[
             profession: "Developper"
     },   
     {
-            id:2,
+          
             name: "Samir Haddadi",
             profile_img: "../../assets/2.png",
             email: "samcoeur2020@gmail.com",
@@ -23,7 +23,7 @@ const users =[
             profession: "Driver"  
     },  
     {
-            id:3,
+         
             name: "Djamel Haddadi",
             profile_img: "../../assets/3.png",
             email: "Djamel-haddadi1990@gmail.com",
@@ -32,7 +32,19 @@ const users =[
             city:"Algiers",
             state: "Algiers",
             profession: "Delivery driver"  
+    },  
+    {
+         
+            name: "Karim Manho",
+            profile_img: "../../assets/3.png",
+            email: "manhoKarm@gmail.com",
+            password: "karim",
+            username: "kimka2024",
+            city:"Algiers",
+            state: "Algiers",
+            profession: "Delivery driver"  
     }
+
 
 ]
 

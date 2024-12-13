@@ -32,9 +32,6 @@ route.route('/')
      res.json(users).status(200)   
    })   
    .post(validateUserRegistration,async(req,res)=> {  // add or register user
-      const uniqueId = uuidv4();
-      console.log(req.body)
-      req.body.id = 10;
       const user = req.body
       const newUser = new userModel(user)
       if(! newUser) return res.json({error:"can't save user"})
@@ -47,9 +44,7 @@ async function validateUserRegistration(req,res,next) {
        return res.status(404).json({error:"invalid entry"}) //redirect('/registration')
     const query = {email:req.body.email}
     const user = await userModel.findOne(query)
-    console.log(user)
     if(user) return res.status(400).json({error:"email exisit already"})
-    // if(await userModel.findOne({id:req.body.id})) return res.status(404).json({error:"user id already exists"})
     next()
 }  
     
@@ -84,15 +79,17 @@ function validateMongoObjectId(req,res,next) {
 
        
   // challenge
-    route.get('/users/:id',async(req,res)=>{ // get single user by _id
+    route.get('/users/:id',validateMongoObjectId, async(req,res)=>{ 
       console.log("start the user"+req.params.id)
-      const userId = Number(req.params.id)
-      const user = await userModel.findOne({id:userId})
-      console.log(user)
+      const userId =req.params.id
+      const user = await userModel.findById(userId)
       if(!user) return res.json({error:"cant find the user"}).status(404)
       res.status(200).json(user)
     })
           
+
+
+
     
 //I use this route to log in a user with session if successfully Authenticated 
 route.get('/login', isAuthenticated, async (req, res) => {

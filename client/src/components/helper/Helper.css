@@ -91,6 +91,7 @@
 .participantdisplayer {
     /* min-height:100%; */
     height: 70px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: start;
@@ -111,7 +112,6 @@
    justify-content: center;
 }
  .videodisplayer video {
- 
     width: 100%;
     height: 100%;
     top: 0;

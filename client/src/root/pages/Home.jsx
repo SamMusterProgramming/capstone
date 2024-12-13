@@ -17,7 +17,7 @@ const Home = ({user}) => {
            <br />
            <hr />
           
-           <div className="row d-flex justify-content-evenly"> 
+           <div className="row d-flex gap-2 justify-content-evenly"> 
              <TalentSelector  link="/challenges" type={"Challenge"} color={'teal'} 
                 logo={'/asset/material/challenge.jpg'}
                 quote="To access all of you Challenges and track progress and see votes " />
@@ -25,6 +25,9 @@ const Home = ({user}) => {
                 logo={'/asset/material/show.avif'} 
                 quote="To access all of you Talent shows  and track progress and see votes "/>
              <TalentSelector  link="/" type={"Guiness"} color={'#1f2a5e'} 
+                logo={'/asset/material/guiness.jpg'}
+                quote="To access all of you Guiness Shows and track progress and see votes " />   
+            <TalentSelector  link="/topchallenges" type={"top challenges"} color={'#1f2a5e'} 
                 logo={'/asset/material/guiness.jpg'}
                 quote="To access all of you Guiness Shows and track progress and see votes " />   
            </div>

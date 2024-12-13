@@ -8,18 +8,16 @@ import ParticipantsDisplayer from '../../components/helper/ParticipantsDisplayer
 
 const Challenges = ({user}) => {
  
- const [challenges ,setChallenges] = useState([])   
-
+const [challenges ,setChallenges] = useState([])   
 const [video_url ,setVideo_url] = useState()
 
 
  useEffect(() => {
  
- 
   const response = async()=>{
   
     try {
-        await axios.get(`http://localhost:8080/posts/challenges/${user.id}`)
+        await axios.get(`http://localhost:8080/posts/challenges/${user._id}`)
         .then(res => {
             setChallenges(res.data) 
             // setVideo_url( "http://localhost:8080" + challenger.participants[0].video_url) 
@@ -30,6 +28,7 @@ const [video_url ,setVideo_url] = useState()
     }
   }  
   response()
+  
   
 
  },[])
@@ -47,27 +46,10 @@ const [video_url ,setVideo_url] = useState()
                             <ParticipantsDisplayer user={user}  participants={challenge.participants} key={index}
                             challenge={challenge} setVideo_url={setVideo_url} />
 
-               </div> )
+                     </div> )
                
-               //    return ( 
-               //       <div key={index}  className="row mt-3 challenges">
-               //          <div  className='col-3'>
-               //           <ParticipantsDisplayer  participants={challenger.participants} key={index} setVideo_url={setVideo_url} />
-               //         </div>
-               //         <div className="col-8">
-               //         <video 
-               //             style={{height:'500px'}}
-               //             width={800}
-               //             src={"http://localhost:8080" + challenger.participants[0].video_url}
-               //             controls
-               //          />  
-               //        </div>
-               //    </div>    
-               //  )
                 }
                 )} 
-
-        
           </div>
 
   )

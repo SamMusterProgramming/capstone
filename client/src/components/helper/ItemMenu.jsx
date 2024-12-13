@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const ItemMenu = (props) => {
   return (   
 
-    <div style={props.styleObject} className="d-flex menu-item ">
+    <div  className="d-flex menu-item ">
     <Link to={props.linkTo}>
       <img className="menu-logo" src={props.logo_src} alt="" />
     </Link>   
