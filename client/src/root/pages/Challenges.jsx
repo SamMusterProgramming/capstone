@@ -17,7 +17,7 @@ const [video_url ,setVideo_url] = useState()
   const response = async()=>{
   
     try {
-        await axios.get(`http://localhost:8080/posts/challenges/${user._id}`)
+        await axios.get(`http://localhost:8080/challenges/challenges/${user._id}`)
         .then(res => {
             setChallenges(res.data) 
         }

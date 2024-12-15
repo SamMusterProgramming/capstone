@@ -48,7 +48,7 @@ const NewChallenge = (props) => {
       formData.append('user_id', props.user._id)
     }
     if(!challenge_id){ // when user creates new challenge
-      await axios.post('http://localhost:8080/posts/upload',formData,{
+      await axios.post('http://localhost:8080/challenges/upload',formData,{
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -56,7 +56,7 @@ const NewChallenge = (props) => {
         res => navigate('/challenges')
       )
     }else{
-      await axios.post(`http://localhost:8080/posts/upload/${challenge_id}`,formData,{
+      await axios.post(`http://localhost:8080/challenges/upload/${challenge_id}`,formData,{
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -78,7 +78,7 @@ function validateMongoObjectId(req,res,next) {
     }    
 
        
-  // challenge
+  // challenge  get user by Id
     route.get('/users/:id',validateMongoObjectId, async(req,res)=>{ 
       console.log("start the user"+req.params.id)
       const userId =req.params.id

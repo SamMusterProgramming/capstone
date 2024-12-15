@@ -18,7 +18,7 @@ const PostFooter = (props) => {
     // axios.post(`http://localhost:8080/posts/post/challenge/like/${props.challenge._id}`,body)
     // .then(res => console.log(res.data) )
     try {
-      await axios.get(`http://localhost:8080/posts/post/challenge/like/`, {
+      await axios.get(`http://localhost:8080/challenges/challenge/like/`, {
         params:{
             ids: ids.join(',')
         }
@@ -40,7 +40,7 @@ const PostFooter = (props) => {
 
     const isLiked = async()=> {
       try {
-        await axios.get(`http://localhost:8080/posts/post/challenge/load/like/`, {
+        await axios.get(`http://localhost:8080/challenges/challenge/load/like/`, {
           params:{
               ids: ids.join(',')
           }

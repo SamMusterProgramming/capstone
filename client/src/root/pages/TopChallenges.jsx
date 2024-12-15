@@ -13,7 +13,7 @@ useEffect(() => {
 const response = async()=>{
   
         try {
-            await axios.get(`http://localhost:8080/posts/topchallenges/${user._id}`)
+            await axios.get(`http://localhost:8080/challenges/topchallenges/${user._id}`)
             .then(res => {
                 setTopChallenges(res.data) 
             }
