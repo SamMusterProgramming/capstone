@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
 import { Select } from 'antd';
 import axios from 'axios'
+import Challenges from '../../root/pages/Challenges';
 
 
 
@@ -25,12 +26,67 @@ const ParticipantsDisplayer = (props) => {
     const [selectedParticipant ,setSelectedParticipant] = useState (props.participants[0])
     const [ownChallenge , setOwnChallenge ] = useState(false)
     const [userProfile , setUserProfile] = useState (props.participants[0])
-   
+    const [initLikeVoteCount , setInitLikeVoteCount] = useState({like_count:props.participants[0].likes,vote_count:props.participants[0].votes})
+    const [isVotedColor,setIsVotedColor] = useState("lightpink")
+    const [isLikedColor,setIsLikedColor] = useState("lightblue")
+    const ids =[ props.user._id,
+      selectedParticipant._id,
+      props.challenge._id
+      ]
+  
+    // const [likesVotesData,setLikesVotesData] = useState(
+    const [likesVotesData,setLikesVotesData] = useState({})  
+
     const navigate = useNavigate()
     
 
+    useEffect(() => { 
+    const isLiked = async()=> {
     
-   
+      try {
+        await axios.get(`http://localhost:8080/challenges/challenge/load/like/`, {
+          params:{
+              ids: ids.join(',')
+          }
+       } )
+        .then(res => setLikesVotesData({...res.data}) )
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  isLiked()
+  console.log("reload")
+
+  },[] )
+    
+    const handleLikes = async(e) => {
+
+      try {
+        await axios.get(`http://localhost:8080/challenges/challenge/like/`, {
+          params:{
+              ids: ids.join(',')
+          }
+       } )
+        .then(res =>  { setLikesVotesData({...likesVotesData,isLiked:res.data.isLiked,like_count:res.data.like_count})} )
+      } catch (error) {
+        console.log(error)
+      }
+  
+    }
+     
+    const handleVotes = async(e)=> {
+      try {
+        await axios.get(`http://localhost:8080/challenges/challenge/vote/`, {
+          params:{
+              ids: ids.join(',')
+          }
+        })
+        .then(res =>  { setLikesVotesData({...likesVotesData,isVoted:res.data.isVoted,vote_count:res.data.vote_count})}) // isVoted , vote_count
+      } catch (error) {
+        console.log(error)
+      }
+        
+    }
 
 
     useEffect(() => { //logic here is to disable the add challenge button if the user has already participated  
@@ -41,10 +97,31 @@ const ParticipantsDisplayer = (props) => {
       })
       }, [])
     
+
+
     useEffect(() => {
-      setVideo_url (selectedParticipant.video_url)
+       setVideo_url(selectedParticipant.video_url)
+       setLikesVotesData({like_count:selectedParticipant.likes,vote_count:selectedParticipant.votes})
+       
+       const isLiked = async()=> {
+    
+        try {
+          await axios.get(`http://localhost:8080/challenges/challenge/load/like/`, {
+            params:{
+                ids: ids.join(',')
+            }
+         } )
+          .then(res => setLikesVotesData({...res.data}) )
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    isLiked()
+    console.log("reload")
     }, [selectedParticipant])
     
+
+
    const baseURL = "http://localhost:8080"
     
    const handleChange = async (value) =>{
@@ -55,9 +132,19 @@ const ParticipantsDisplayer = (props) => {
           console.log(error)
       }
       setSelectedParticipant(props.participants.find(participant => participant.user_id === value))
-      
       } 
    
+  useEffect(() => {
+    likesVotesData.isLiked ? 
+         setIsLikedColor("blue")   
+         : setIsLikedColor("lightblue")
+    likesVotesData.isVoted ? 
+         setIsVotedColor("red")   
+         : setIsVotedColor("lightpink")    
+  }, [likesVotesData])
+  
+
+
   return (
     <>
         <div >
@@ -117,9 +204,11 @@ const ParticipantsDisplayer = (props) => {
                     controls />
                 
             </div>
-            <PostFooter participants={props.Participants}  user={props.user}
-              challenge={props.challenge} participant={selectedParticipant} />
+            <PostFooter challenge={props.challenge} likesVotesData={likesVotesData} handleLikes={handleLikes}
+              handleVotes={handleVotes}  isLikedColor={isLikedColor} isVotedColor={isVotedColor} user={props.user}
+               />
         </div> 
+       
      
     
     </>

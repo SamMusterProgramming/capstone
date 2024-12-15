@@ -36,12 +36,14 @@ route.post('/upload',upload.single('video'),async(req,res)=>{
         return res.status(400).send('no file to upload')
     }
     const newObjectId = new mongoose.Types.ObjectId();
+    const timeLapse = Date.now();
     const challenge = {
         origin_id:req.body.origin_id,
         video_url:"/static/videos/" + req.file.originalname,
         desc: req.body.description,
         category : "eating context",
         like_count:0,    
+        
         participants:[{
              _id: newObjectId,
              user_id:req.body.origin_id ,
@@ -49,7 +51,8 @@ route.post('/upload',upload.single('video'),async(req,res)=>{
              likes:0,
              votes:0,
              profile_img:req.body.profile_img,
-             name:req.body.name
+             name:req.body.name,
+             createdAt:timeLapse
             }]    
     }
     const newChallenge = await challengeModel(challenge)
@@ -142,7 +145,6 @@ route.route('/challenge/like/' )
         
         const challenge = await challengeModel.findById(query.challenge_id)
         const elementIndex = challenge.participants.findIndex(el => el._id.toString() === query.post_id);
-        console.log("element index" + elementIndex)
 
         let likes = challenge.participants[elementIndex].likes 
         if (like.like)  likes = likes + 1 
@@ -152,7 +154,7 @@ route.route('/challenge/like/' )
         challenge.participants[elementIndex] ={...challenge.participants[elementIndex],likes:likes};
         console.log(challenge.participants[elementIndex].likes)
         await challenge.save()
-        res.json({isliked:like.like,like_count:likes}).status(200)    
+        res.json({isLiked:like.like,like_count:likes}).status(200)    
     })   
          
 route.route('/challenge/load/like/' )
@@ -171,13 +173,53 @@ route.route('/challenge/load/like/' )
             const challenge = await challengeModel.findById(challenge_id)
             const elementIndex = challenge.participants.findIndex(el => el._id.toString() === query.post_id);
             const likes = challenge.participants[elementIndex].likes 
-            const likeData = {isliked:like.like,like_count:likes}
-          
-                
+            const votes = challenge.participants[elementIndex].votes 
+            const likeData = {isLiked:like.like,like_count:likes,isVoted:like.vote,vote_count:votes}
             res.json(likeData).status(200)      
     })   
 
+    // challenge vote 
+    route.route('/challenge/vote/' )
+    .get(async(req,res)=>{  
+        console.log("i am here")
+        const ids = req.query.ids.split(',');
+        const query = {
+            user_id:ids[0],
+            post_id:ids[1],
+            challenge_id :ids[2]
+        }
+         
+        let  find = await likeModel.findOne({user_id:query.user_id,post_id:query.post_id})
+        let challenge = await challengeModel.findById(query.challenge_id)
+        const elementIndex = challenge.participants.findIndex(el => el._id.toString() === query.post_id);
+        let votes = challenge.participants[elementIndex].votes 
 
+        if (find.vote) {
+           find.vote = false
+           challenge.participants[elementIndex] ={...challenge.participants[elementIndex],votes:votes-1};
+           await find.save()
+           await challenge.save()
+           return res.json({isVoted:false,vote_count:votes-1})
+        }
+        else {
+            let participants = challenge.participants.filter(participant => participant._id != query.post_id)
+            let exist = null
+            for (const participant of participants) {
+                console.log(participant)
+            exist = await likeModel.findOne({user_id:query.user_id,post_id:participant._id})
+            console.log(exist)
+            if (exist) if(exist.vote) break;
+          }
+        if(exist) if(exist.vote) return res.json({isVoted:false,vote_count:votes})
+        challenge.participants[elementIndex] ={...challenge.participants[elementIndex],votes:votes+1};
+        find.vote = true
+        await find.save()
+        await challenge.save()
+        return res.json({isVoted:true , vote_count:votes+1}).status(200)
+        }   
+
+    })   
+         
 
 
 
