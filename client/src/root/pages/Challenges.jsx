@@ -20,7 +20,6 @@ const [video_url ,setVideo_url] = useState()
         await axios.get(`http://localhost:8080/posts/challenges/${user._id}`)
         .then(res => {
             setChallenges(res.data) 
-            // setVideo_url( "http://localhost:8080" + challenger.participants[0].video_url) 
         }
          )
     } catch (error) {
@@ -37,12 +36,12 @@ const [video_url ,setVideo_url] = useState()
 
   return (
   
-     <div className=' d-flex gap-5 flex-column justify-content-start align-items-center ch-page'>
+     <div className=' d-flex gap-5 flex-wrap justify-content-center align-items-center ch-page'>
        
    
        { challenges.map((challenge,index)=>{
 
-            return  ( <div className="row challenges">
+            return  ( <div className="d-flex flex-column mb-0 mt-5 justify-content-center align-items-center challenges">
                             <ParticipantsDisplayer user={user}  participants={challenge.participants} key={index}
                             challenge={challenge} setVideo_url={setVideo_url} />
 

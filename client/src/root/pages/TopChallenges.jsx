@@ -29,19 +29,18 @@ const response = async()=>{
 
   return (
    
-    <div className=' d-flex gap-5 flex-column justify-content-start align-items-center ch-page'>
+    <div className=' d-flex gap-5 flex-wrap mb-5 mt-5  justify-content-center align-items-center ch-page'>
        
    
     { topChallenges.map((challenge,index)=>{
 
-         return  ( <div className="row challenges">
+         return  ( <div className="d-flex flex-column mt-3  justify-content-center align-items-center challenges">
                          <ParticipantsDisplayer user={user}  participants={challenge.participants} key={index}
                          challenge={challenge} setVideo_url={setVideo_url} />
-            </div> )
-            
+                  </div> ) 
              }
              )} 
-       </div>
+    </div>
   )
 }
 

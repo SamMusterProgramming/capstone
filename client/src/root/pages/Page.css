@@ -10,22 +10,23 @@
 .homelayout{
     min-height:85vh;
     overflow: scroll;
-   
+    
 }
 /* ************************** challenge post ****************************************** */
 .post-container{
     max-width:900px;
     gap:30px;
-    max-height:100%;
+    min-height:100%;
     flex-direction: column;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     overflow: scroll;
+    background-color:#1b34a6
     
 }
 .description {
-    border-radius: 15px;
+
     padding: 10px;
     font-size: 13px;
     font-weight: 200;
@@ -72,18 +73,23 @@
     min-height:100%;
     display: flex;
     justify-content: start;
+  
     /* border: 6px solid black; */
-    background-color:#eaeaea;  
+    /* background-color:#eaeaea;   */
 }
 
 
 /* ************************** challenges ****************************************** */
 .ch-page {
     background-color: black;
+    min-height:100%;
+    min-width: 100%;
 }
 .challenges {
     background-color:#1f1e15;
-    min-height:500px;
+    min-height:600px;
+    min-width:350px;
+    max-width: 500px;
     width: 100%;
     border-radius: 10px;
 
@@ -96,3 +102,13 @@
   min-height: 100vh;
   background-color: black;
 }
+
+
+.customSelect {
+    :global {
+      .ant-select-selection {
+        max-height: 51px;
+        overflow: auto;
+      }
+    }
+  }

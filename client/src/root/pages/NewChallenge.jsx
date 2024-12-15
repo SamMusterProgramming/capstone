@@ -9,7 +9,7 @@ import { useRecordWebcam } from 'react-record-webcam'
 import UploadVideo from '../../components/helper/UploadVideo';
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const NewChallenge = (props) => {
@@ -26,6 +26,7 @@ const NewChallenge = (props) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [playReview , setPlayReview] = useState(false)
   const [description , setDescription] = useState("")
+  const navigate = useNavigate();
   const  challenge_id  = useParams().id;
  
 
@@ -52,14 +53,14 @@ const NewChallenge = (props) => {
           'Content-Type': 'multipart/form-data',
         },
       }).then( // when user challenge another user , we will insert his change to an existing challenge by challenge_id
-        res => console.log(res)
+        res => navigate('/challenges')
       )
     }else{
       await axios.post(`http://localhost:8080/posts/upload/${challenge_id}`,formData,{
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      }).then( // when user challenge another user , we will insert his change to an existing challenge by challenge_id
+      }).then( // when user challenge another user , we will insert his challenge to an existing challenge by challenge_id
         res => console.log(res)
       )
     }
@@ -80,16 +81,20 @@ const addDescrition =(e)=> {
 }
 
   return (
-   <div style={{backgroundColor:'white'}} className='container-fluid'>
-    <div className="container-fluid  text-start post-container">
-               
-         <p style={{fontSize:12,color:'black'}}> Welcome  <span style={{fontSize:16,color:'GrayText'}}>{props.user.name}</span> ,
-          are you ready to lunch a new Challenge to the world <br/>
-         the Stage is yours, record or upload your challenge content from your comfort zone <br/>
-         Let the world be judge, someone will pick up the challenge   </p>
+   <div className="d-flex justify-content-center align-items-center">
+
+  
+    <div className=" text-start post-container">
+           <span style={{fontSize:16,color:'#bf771f',padding:"10px"}}>{props.user.name}</span>
+          <p style={{fontSize:11,color:'white',color:"white",fontWeight:'600',padding:"6px",marginTop:'-40px'}}> Welcome  ,
+            are you ready to lunch a new Challenge to the world <br/>
+            the Stage is yours !! record or upload your challenge content from your comfort zone 
+            and let the world be judge, someone will pick up the challenge   </p>
+          
+          
          <PostHeader user={props.user} talentType ="Challenge"/>
   
-          <textarea style={{backgroundColor:'black',color:'white',fontWeight:500}}
+          <textarea style={{backgroundColor:'white',color:'black',fontWeight:500}}
            className="description" onChange={addDescrition}  name='description' placeholder='add description to your challenge'>
           </textarea>
 
@@ -117,7 +122,8 @@ const addDescrition =(e)=> {
           <button onClick={handleUploading} className='mt-1 mb-3 submit'>Submit</button>
 
     </div> 
-  </div>  
+
+  </div>
   )
 }  
 

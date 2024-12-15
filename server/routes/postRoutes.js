@@ -5,7 +5,8 @@ const commentModel = require('../models/comments')
 const challengeModel = require('../models/challenge.js')
 const data = require('../utilities/data')
 const upload = require('../multer.js')
-
+const likeModel = require ('../models/likes.js')
+const mongoose = require('mongoose')
 
 route = express.Router();
 
@@ -23,6 +24,12 @@ route.get('/seed',async(req,res)=>{
     if(!posts) return res.json({error:"posts list is empty"})
     res.json(posts).status(200) 
 })
+route.get('/like/seed',async(req,res)=>{
+    challengeModel.collection.drop() 
+    likeModel.collection.drop() 
+    res.json('azul')
+})   
+
 
 route.get('/challenges/seed',async(req,res)=>{
     challengeModel.collection.drop() // delete the collection document and inialise it with prototype data.js
@@ -43,13 +50,16 @@ route.post('/upload',upload.single('video'),async(req,res)=>{
     if(!req.file){
         return res.status(400).send('no file to upload')
     }
+    const newObjectId = new mongoose.Types.ObjectId();
     const challenge = {
         origin_id:req.body.origin_id,
         video_url:"/static/videos/" + req.file.originalname,
         desc: req.body.description,
         category : "eating context",
-        like_count:0,
-        participants:[{user_id:req.body.origin_id ,
+        like_count:0,    
+        participants:[{
+             _id: newObjectId,
+             user_id:req.body.origin_id ,
              video_url:"/static/videos/" + req.file.originalname,
              likes:0,
              votes:0,
@@ -59,6 +69,13 @@ route.post('/upload',upload.single('video'),async(req,res)=>{
     }
     const newChallenge = await challengeModel(challenge)
     await newChallenge.save()
+    const like =  new likeModel({
+        post_id:newObjectId,
+        user_id:req.body.origin_id,
+        like:false,
+        vote:false
+    })
+    await like.save()
     res.json( newChallenge)
 })
 
@@ -67,6 +84,7 @@ route.post('/upload/:id',validateMongoObjectId,upload.single('video'),async(req,
     if(!req.file){
         return res.status(400).send('no file to upload')
     }
+    const newObjectId = new mongoose.Types.ObjectId();
     const _id = req.params.id
     const participant = {
         // origin_id:req.body.origin_id,
@@ -74,6 +92,7 @@ route.post('/upload/:id',validateMongoObjectId,upload.single('video'),async(req,
         // desc: req.body.description,
         // category : "eating context",
         // like_count:0,
+             _id: newObjectId,
              user_id:req.body.user_id ,
              video_url:"/static/videos/" + req.file.originalname,
              likes:0,
@@ -89,7 +108,14 @@ route.post('/upload/:id',validateMongoObjectId,upload.single('video'),async(req,
          },
          { new:true } 
     )
-    if(!challenge) return res.json({error:"can';t save the video"})
+    if(!challenge) return res.json({error:"can't save the video"})
+    const like =  new likeModel({
+            post_id: newObjectId,
+            user_id:req.body.user_id,
+            like:false,
+            vote:false
+    })
+    await like.save()
     res.json(challenge)
 })
 
@@ -101,7 +127,7 @@ route.get('/challenges/:id',async(req,res)=> {
     const ch = await challengeModel.find({
         participants:{$elemMatch: {user_id:req.params.id }}
     })
-    console.log(ch)
+   
     res.json(ch)   
 })
 
@@ -114,9 +140,65 @@ route.get('/topchallenges/:id',validateMongoObjectId,async(req,res)=> {
     //     participants:{  user_id:{$ne: req.params.id }}
     //  })
 
-    console.log(challenges)
+    console.log(challenges)    
     res.json(challenges)   
-})
+})  
+    
+/// likes **********************************
+route.route('/post/challenge/like/' )
+    .get(async(req,res)=>{  
+        const ids = req.query.ids.split(',');
+        const query = {
+            user_id:ids[0],
+            post_id:ids[1],
+            challenge_id :ids[2]
+        }
+        console.log(query) 
+
+        let like = await likeModel.findOneAndUpdate(
+           { user_id:query.user_id,post_id:query.post_id},
+           [ { "$set": { "like": { "$eq": [false, "$like"] } } } ] , 
+           { new: true } 
+        )   
+
+        if(!like) like = await new likeModel({user_id:query.user_id,post_id:query.post_id}).save()
+        
+        const challenge = await challengeModel.findById(query.challenge_id)
+        const elementIndex = challenge.participants.findIndex(el => el._id.toString() === query.post_id);
+        console.log("element index" + elementIndex)
+
+        let likes = challenge.participants[elementIndex].likes 
+        if (like.like)  likes = likes + 1 
+        else {
+            if(like.like !== 0)  likes = likes - 1  
+        } 
+        challenge.participants[elementIndex] ={...challenge.participants[elementIndex],likes:likes};
+        console.log(challenge.participants[elementIndex].likes)
+        await challenge.save()
+        res.json({isliked:like.like,like_count:likes}).status(200)    
+    })   
+         
+route.route('/post/challenge/load/like/' )
+    .get(async(req,res)=>{  
+            const ids = req.query.ids.split(',');
+            const query = {
+                user_id:ids[0],
+                post_id:ids[1],
+            }
+            const challenge_id = ids[2]
+            console.log(query)
+            let like = await likeModel.findOne(
+                query
+            )
+            if(!like) like = await new likeModel({user_id:query.user_id,post_id:query.post_id}).save()
+            const challenge = await challengeModel.findById(challenge_id)
+            const elementIndex = challenge.participants.findIndex(el => el._id.toString() === query.post_id);
+            const likes = challenge.participants[elementIndex].likes 
+            const likeData = {isliked:like.like,like_count:likes}
+          
+                
+            res.json(likeData).status(200)      
+    })   
 
 
 route.route('/')
