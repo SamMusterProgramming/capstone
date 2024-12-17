@@ -6,5 +6,18 @@ export default defineConfig({
   plugins: [react()],
   preview: {
     port: 8080
+  },
+  build: {
+
+    minify: true, // Enable minification
+
+    outDir: 'dist', // Output directory
+
+    rollupOptions: {
+
+      // Further rollup optimization options if needed
+
+    }
+
   }
 })
