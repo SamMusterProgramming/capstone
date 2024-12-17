@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './Helper.css'
-import { getUser } from '../../apiCalls'
-import Participant from './Participant'
+import {  getUserById, liked, loadLikeVoteData, voted } from '../../apiCalls'
+
 import ReactPlayer from "react-player";
 import PostHeader from './PostHeader';
 import PostFooter from './PostFooter';
@@ -41,51 +41,20 @@ const ParticipantsDisplayer = (props) => {
     
 
     useEffect(() => { 
-    const isLiked = async()=> {
-    
-      try {
-        await axios.get(`http://localhost:8080/challenges/challenge/load/like/`, {
-          params:{
-              ids: ids.join(',')
-          }
-       } )
-        .then(res => setLikesVotesData({...res.data}) )
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  isLiked()
-  console.log("reload")
+  //apiCall.js  , load the like and vote data when nloading 
+   loadLikeVoteData(ids,setLikesVotesData)    
 
-  },[] )
+   },[] )
     
     const handleLikes = async(e) => {
-
-      try {
-        await axios.get(`http://localhost:8080/challenges/challenge/like/`, {
-          params:{
-              ids: ids.join(',')
-          }
-       } )
-        .then(res =>  { setLikesVotesData({...likesVotesData,isLiked:res.data.isLiked,like_count:res.data.like_count})} )
-      } catch (error) {
-        console.log(error)
-      }
+    //apiCall.js , when user click like button 
+      liked(ids,setLikesVotesData,likesVotesData)
   
     }
      
     const handleVotes = async(e)=> {
-      try {
-        await axios.get(`http://localhost:8080/challenges/challenge/vote/`, {
-          params:{
-              ids: ids.join(',')
-          }
-        })
-        .then(res =>  { setLikesVotesData({...likesVotesData,isVoted:res.data.isVoted,vote_count:res.data.vote_count})}) // isVoted , vote_count
-      } catch (error) {
-        console.log(error)
-      }
-        
+       //apiCall.js , when user vote like button
+      voted(ids,setLikesVotesData,likesVotesData)   
     }
 
 
@@ -95,45 +64,25 @@ const ParticipantsDisplayer = (props) => {
             setOwnChallenge(prev => !prev)
          } 
       })
+      
       }, [])
-    
-
 
     useEffect(() => {
        setVideo_url(selectedParticipant.video_url)
        setLikesVotesData({like_count:selectedParticipant.likes,vote_count:selectedParticipant.votes})
-       
-       const isLiked = async()=> {
-    
-        try {
-          await axios.get(`http://localhost:8080/challenges/challenge/load/like/`, {
-            params:{
-                ids: ids.join(',')
-            }
-         } )
-          .then(res => setLikesVotesData({...res.data}) )
-        } catch (error) {
-          console.log(error)
-        }
-      }
-    isLiked()
-    console.log("reload")
+       //apiCall.js  , load the like and vote data when loading new participant 
+       loadLikeVoteData(ids,setLikesVotesData)   
+  
     }, [selectedParticipant])
     
 
-
-   const baseURL = "http://localhost:8080"
     
-   const handleChange = async (value) =>{
-        try {
-          await axios.get(baseURL+`/users/users/${value}`)
-          .then(res => setUserProfile({...res.data}))
-      } catch (error) {
-          console.log(error)
-      }
+    const handleChange = async (value) =>{
+      getUserById(value ,setUserProfile)
       setSelectedParticipant(props.participants.find(participant => participant.user_id === value))
       } 
    
+
   useEffect(() => {
     likesVotesData.isLiked ? 
          setIsLikedColor("blue")   
@@ -146,44 +95,73 @@ const ParticipantsDisplayer = (props) => {
 
 
   return (
-    <>
-        <div >
-        {!ownChallenge? ( 
-             <button style={{width:'90px',color:"lightblue",textAlign:'center'}}
-              onClick={(e) => navigate(`/matchchallenge/${props.challenge._id}`)} >
-                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" className="bi bi-patch-plus-fill" viewBox="0 0 16 16">
-                <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
-              </svg>
-             </button>
-        ):(
-            <button disabled style={{width:'90px',color:"lightgray",opacity:'20%'}} >
-                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" className="bi bi-patch-plus-fill" viewBox="0 0 16 16">
-                  <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
-                </svg>
-            </button>
-            )}
+    <div className="d-flex flex-column mb-0 mt-5 justify-content-center align-items-center challenges">
+          
+         <div className='d-flex flex-row  justify-content-between align-items-center '
+            style={{height:'50px',width:'100%'}} >
+              
+                   {!ownChallenge? (    
+                    <button style={{width:'110px',color:"lightgreen",textAlign:'center',
+                      backgroundColor:'#c29311',height:'100%',fontSize:"16px",fontWeight:"800"
+                    }}               
+                      onClick={(e) => navigate(`/matchchallenge/${props.challenge._id}`)} >
+                        CHALLENGE      
+                    </button> 
+                  ):(
+        
+                    <button style={{width:'90px',color:"white",textAlign:'center',
+                      backgroundColor:'#b81842',height:'100%',fontSize:"16px",fontWeight:"800"
+                    }}  >
+                        QUIT  
+                    </button>
+                    )}
+            
+                   <div className='d-flex flex-column align-items-center justify-content-start'
+                      style={{widh:"180px" , height:"100%"}}>
+                      <span>{props.participants.length}</span>
+                      <p style={{fontSize:'12px'}}>CHALLENGERS</p>
+                   </div>
+                   <div className='d-flex flex-column align-items-center justify-content-center'
+                      style={{widh:"180px" , height:"100%"}}>      
+                    <p style={{fontSize:'18px',color:'white'}}>4.5<span style={{fontSize:'18px',color:'gold'}}>   *****</span></p> 
+                      <p style={{fontSize:'11px',color:'white',marginTop:"-9px",marginLeft:"29px"}}>rating</p>
+                   </div>
+                   <button style={{color:'lightgreen' ,backgroundColor:'#114fc2'
+                      ,width:'90px',color:"lightblue",height:'100%',fontSize:"16px",fontWeight:"800"
+                      }}>
+                      Follow
+                   </button>
+                 
+                  
+               
+              
         </div>
-
+       
         <div key={props.key} className='d-flex mt-0 justify-content-center participantdisplayer'> 
           <Select
-            style={{width:"100%",height:"60px",border:"none",fontWeight:"600", backgroundColor:"transparent",textAlign:"center"}}
-            defaultValue = "Choose a participant"
-            onChange={handleChange}
+            style={{width:"100%",height:"60px",border:"none",fontWeight:"800", backgroundColor:"transparent",textAlign:"center"}}
+        
+            onChange={handleChange} 
                 >
                 {props.participants.map((participant,index)=>{
-                  return  (<Select.Option style={{ color:'black',fontWeight:"500",
+                  return  (<Select.Option key={index} style={{ color:'black',fontWeight:"500",
                     backgroundColor:"lightgray",width:"100%",height:"60px"
-                  }} key={index} value = {participant.user_id} 
-                   className="d-flex flex-row align-items-center gap-3"
+                  }}  value = {participant.user_id} 
+                   className="d-flex flex-row align-items-start gap3"
                   >
-                    <div  className="d-flex flex-row align-items-center gap-4">
-                       <img style={{width:'40px', height:'40px'}} src={"http://localhost:8080"+userProfile.profile_img} alt="" />
-                       <p>{ (props.user._id===participant.user_id)? participant.name + " ----> you": participant.name}</p> 
-                       <Link to="/profile" style={{marginLeft:'auto'}}> 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" className="bi bi-person-lines-fill" viewBox="0 0 16 16">
-                          <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-                        </svg>
-                       </Link>
+                    <div  className="d-flex flex-row align-items-center gap-2">
+
+                    <div class="chip">
+                      <p > {(props.user._id===participant.user_id)? participant.name + " - YOU": participant.name} </p> 
+                     </div>
+                    
+                     <div className='d-flex flex-ro text-center gap-2  align-items-center showvote'>
+                          <p>{participant.votes}</p> 
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"color='red' className="bi bi-heart-fill" viewBox="0 0 16 16">
+                           <path fill-rule="evenodd"  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                          </svg>
+                         <p style={{marginRight:'6px'}}>votes</p>
+                     </div>
                     </div>
                     
                   </Select.Option>)
@@ -192,14 +170,14 @@ const ParticipantsDisplayer = (props) => {
           </Select>
         </div>
         <div className=" d-flex flex-column mb-0 videopost">
-            <PostHeader user={userProfile} talentType ="Challenge" />
+            <PostHeader user={userProfile} participant={selectedParticipant} talentType ="Challenge"/>
             <div className='videodisplayer'>
                 <video
                     className='video'
                     style={{width:'100%',backgroundColor:'black'}}
                     width="100%"
                     height="100%"
-                    pip
+                    autoPlay
                     src={ "http://localhost:8080" + video_url}
                     controls />
                 
@@ -211,7 +189,7 @@ const ParticipantsDisplayer = (props) => {
        
      
     
-    </>
+    </div>
   )
 }
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './Page.css'
 import axios from 'axios'
 import ParticipantsDisplayer from '../../components/helper/ParticipantsDisplayer'
-
+import { getUserChallenges ,BASE_URL } from '../../apiCalls' 
 
 
 
@@ -13,22 +13,8 @@ const [video_url ,setVideo_url] = useState()
 
 
  useEffect(() => {
- 
-  const response = async()=>{
-  
-    try {
-        await axios.get(`http://localhost:8080/challenges/challenges/${user._id}`)
-        .then(res => {
-            setChallenges(res.data) 
-        }
-         )
-    } catch (error) {
-        console.log(error)
-    }
-  }  
-  response()
-  
-  
+ //apiCalls.js
+  getUserChallenges(user._id,setChallenges) // get user challenges video when the page loads
 
  },[])
  
@@ -41,11 +27,11 @@ const [video_url ,setVideo_url] = useState()
    
        { challenges.map((challenge,index)=>{
 
-            return  ( <div className="d-flex flex-column mb-0 mt-5 justify-content-center align-items-center challenges">
+            return  ( 
                             <ParticipantsDisplayer user={user}  participants={challenge.participants} key={index}
                             challenge={challenge} setVideo_url={setVideo_url} />
 
-                     </div> )
+                      )
                
                 }
                 )} 

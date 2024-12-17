@@ -18,6 +18,7 @@ import Challenges from './root/pages/Challenges.jsx'
 import TopBar from './components/TopBar.jsx'
 import RightSideBar from './components/RightSideBar.jsx'
 import TopChallenges from './root/pages/TopChallenges.jsx'
+import Profile from './root/pages/Profile.jsx'
 
 export default function App() {
   const [user, setUser] = useState(null)
@@ -42,6 +43,7 @@ export default function App() {
                 <Route path="home" element={ <Home user={user}/>} />
                 <Route path="challenges" element ={<Challenges user={user}/>} /> 
                 <Route path="topchallenges" element ={<TopChallenges user={user}/>} /> 
+                <Route path="profile/:id" element={<Profile user={user}/>} />
               </Route>
 
              <Route path="newchallenge" element={ <NewChallenge user={user}/>} />

@@ -6,9 +6,6 @@ import { useRef } from 'react'
 const PostFooter = (props) => {
 
   
-
-  
- 
   return (
     <div className='d-flex flex-row text-light justify-content-evenly gap-4 align-items-center videofooter'>
     <div className='d-flex align-items-center gap-3'>

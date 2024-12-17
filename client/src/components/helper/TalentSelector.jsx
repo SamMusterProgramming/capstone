@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 
 const TalentSelector = (props) => {
   return (
-           <div  className="col-md-4 gap-sm-4 challenge-card">  
+           
                 <div  className="card mt-1">
-                    <div className='d-flex justify-content-between align-items-center top '>
+                    <div className='d-flex justify-content-between align-items-center top'>
                       <img className='logo-select' src={props.logo} alt="logo" />
                       <h5 className="card-header text-center">{props.type}</h5>
                     </div>
@@ -15,13 +15,15 @@ const TalentSelector = (props) => {
                     </p>
                   <Link to ={props.link}>
                     <button 
-                    style={{color:'White',backgroundColor:props.color}}
-                   type="button" >Access {props.type}
+                    style={{color:'White',backgroundColor:props.color,fontSize:"10px",
+                      width:"130px",height:'40px'
+                    }}
+                   type="button" > {props.type}
                     </button>
                   </Link>
-               </div>
+                </div>
               </div>
-            </div>  
+    
           
   )
 }

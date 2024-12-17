@@ -11,7 +11,7 @@ route = express.Router();
 route.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true   
 })) 
  
 // seeds the database with prototype data

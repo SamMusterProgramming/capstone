@@ -1,11 +1,7 @@
 import { useRef, useState ,useCallback } from 'react';
-import Webcam from 'react-webcam';
 import PostHeader from '../../components/helper/PostHeader';
 import './Page.css'
-import VideoUploader from '../../components/helper/videoUploader';
-import VideoRecorder from '../../components/helper/VideoRecorder';
 import LiveWebcam from '../../components/helper/LiveWebcam';
-import { useRecordWebcam } from 'react-record-webcam' 
 import UploadVideo from '../../components/helper/UploadVideo';
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
@@ -37,7 +33,7 @@ const NewChallenge = (props) => {
       const lastIndex = file.name.lastIndexOf('.')
       const ext = file.name.slice( lastIndex + 1)
       const date = Date.now()
-      let newFilename = new File([file],date+"samir_haddadi2024."+ ext,{type:file.type,
+      let newFilename = new File([file],date+ props.user.name +'.' + ext,{type:file.type,
         lastModified:file.lastModified  
       })
       formData.append('video',newFilename)
@@ -60,8 +56,7 @@ const NewChallenge = (props) => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      }).then( // when user challenge another user , we will insert his challenge to an existing challenge by challenge_id
-        res => console.log(res)
+      }).then( res => console.log(res.data)
       )
     }
    

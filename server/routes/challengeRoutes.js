@@ -214,7 +214,7 @@ route.route('/challenge/load/like/' )
         challenge.participants[elementIndex] ={...challenge.participants[elementIndex],votes:votes+1};
         find.vote = true
         await find.save()
-        await challenge.save()
+        await challenge.save()   
         return res.json({isVoted:true , vote_count:votes+1}).status(200)
         }   
 
